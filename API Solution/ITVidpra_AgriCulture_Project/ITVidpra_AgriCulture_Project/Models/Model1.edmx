@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AgricultureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Crops">
+          <Key>
+            <PropertyRef Name="C_No" />
+          </Key>
+          <Property Name="C_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="C_Name" Type="varchar" MaxLength="20" />
+          <Property Name="C_Type" Type="varchar" MaxLength="20" />
+          <Property Name="C_Duration" Type="varchar" MaxLength="100" />
+          <Property Name="C_Description" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="tbl_District">
+          <Key>
+            <PropertyRef Name="D_No" />
+          </Key>
+          <Property Name="D_No" Type="int" Nullable="false" />
+          <Property Name="D_Name" Type="varchar" MaxLength="25" />
+          <Property Name="D_Code" Type="varchar" MaxLength="10" />
+          <Property Name="Administrative_Division" Type="varchar" MaxLength="50" />
+          <Property Name="Area" Type="float" />
+          <Property Name="Collector" Type="varchar" MaxLength="20" />
+          <Property Name="State" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbl_Taluka">
+          <Key>
+            <PropertyRef Name="T_No" />
+          </Key>
+          <Property Name="T_No" Type="int" Nullable="false" />
+          <Property Name="T_Name" Type="varchar" MaxLength="20" />
+          <Property Name="Pin_Code" Type="varchar" MaxLength="10" />
+          <Property Name="Tehashil" Type="varchar" MaxLength="30" />
+          <Property Name="D_No" Type="int" />
+          <Property Name="D_Name" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <Association Name="FK__tbl_Taluka__D_No__4E88ABD4">
+          <End Role="tbl_District" Type="Self.tbl_District" Multiplicity="0..1" />
+          <End Role="tbl_Taluka" Type="Self.tbl_Taluka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_District">
+              <PropertyRef Name="D_No" />
+            </Principal>
+            <Dependent Role="tbl_Taluka">
+              <PropertyRef Name="D_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AgricultureModelStoreContainer">
+          <EntitySet Name="Tbl_Crops" EntityType="Self.Tbl_Crops" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_District" EntityType="Self.tbl_District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Taluka" EntityType="Self.tbl_Taluka" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_Taluka__D_No__4E88ABD4" Association="Self.FK__tbl_Taluka__D_No__4E88ABD4">
+            <End Role="tbl_District" EntitySet="tbl_District" />
+            <End Role="tbl_Taluka" EntitySet="tbl_Taluka" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AgricultureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Crops">
+          <Key>
+            <PropertyRef Name="C_No" />
+          </Key>
+          <Property Name="C_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="C_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="C_Duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="C_Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_District">
+          <Key>
+            <PropertyRef Name="D_No" />
+          </Key>
+          <Property Name="D_No" Type="Int32" Nullable="false" />
+          <Property Name="D_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="D_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Administrative_Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="Double" />
+          <Property Name="Collector" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Taluka" Relationship="Self.FK__tbl_Taluka__D_No__4E88ABD4" FromRole="tbl_District" ToRole="tbl_Taluka" />
+        </EntityType>
+        <EntityType Name="tbl_Taluka">
+          <Key>
+            <PropertyRef Name="T_No" />
+          </Key>
+          <Property Name="T_No" Type="Int32" Nullable="false" />
+          <Property Name="T_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Pin_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Tehashil" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="D_No" Type="Int32" />
+          <Property Name="D_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_District" Relationship="Self.FK__tbl_Taluka__D_No__4E88ABD4" FromRole="tbl_Taluka" ToRole="tbl_District" />
+        </EntityType>
+        <Association Name="FK__tbl_Taluka__D_No__4E88ABD4">
+          <End Role="tbl_District" Type="Self.tbl_District" Multiplicity="0..1" />
+          <End Role="tbl_Taluka" Type="Self.tbl_Taluka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_District">
+              <PropertyRef Name="D_No" />
+            </Principal>
+            <Dependent Role="tbl_Taluka">
+              <PropertyRef Name="D_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AgricultureEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Crops" EntityType="Self.Tbl_Crops" />
+          <EntitySet Name="tbl_District" EntityType="Self.tbl_District" />
+          <EntitySet Name="tbl_Taluka" EntityType="Self.tbl_Taluka" />
+          <AssociationSet Name="FK__tbl_Taluka__D_No__4E88ABD4" Association="Self.FK__tbl_Taluka__D_No__4E88ABD4">
+            <End Role="tbl_District" EntitySet="tbl_District" />
+            <End Role="tbl_Taluka" EntitySet="tbl_Taluka" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AgricultureModelStoreContainer" CdmEntityContainer="AgricultureEntities">
+          <EntitySetMapping Name="Tbl_Crops">
+            <EntityTypeMapping TypeName="AgricultureModel.Tbl_Crops">
+              <MappingFragment StoreEntitySet="Tbl_Crops">
+                <ScalarProperty Name="C_No" ColumnName="C_No" />
+                <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+                <ScalarProperty Name="C_Type" ColumnName="C_Type" />
+                <ScalarProperty Name="C_Duration" ColumnName="C_Duration" />
+                <ScalarProperty Name="C_Description" ColumnName="C_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_District">
+            <EntityTypeMapping TypeName="AgricultureModel.tbl_District">
+              <MappingFragment StoreEntitySet="tbl_District">
+                <ScalarProperty Name="D_No" ColumnName="D_No" />
+                <ScalarProperty Name="D_Name" ColumnName="D_Name" />
+                <ScalarProperty Name="D_Code" ColumnName="D_Code" />
+                <ScalarProperty Name="Administrative_Division" ColumnName="Administrative_Division" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Collector" ColumnName="Collector" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Taluka">
+            <EntityTypeMapping TypeName="AgricultureModel.tbl_Taluka">
+              <MappingFragment StoreEntitySet="tbl_Taluka">
+                <ScalarProperty Name="T_No" ColumnName="T_No" />
+                <ScalarProperty Name="T_Name" ColumnName="T_Name" />
+                <ScalarProperty Name="Pin_Code" ColumnName="Pin_Code" />
+                <ScalarProperty Name="Tehashil" ColumnName="Tehashil" />
+                <ScalarProperty Name="D_No" ColumnName="D_No" />
+                <ScalarProperty Name="D_Name" ColumnName="D_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

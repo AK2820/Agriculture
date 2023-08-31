@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AgricultureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tbl_Crops">
+    <Key>
+      <PropertyRef Name="C_No" />
+    </Key>
+    <Property Name="C_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="C_Name" Type="varchar" MaxLength="20" />
+    <Property Name="C_Type" Type="varchar" MaxLength="20" />
+    <Property Name="C_Duration" Type="varchar" MaxLength="100" />
+    <Property Name="C_Description" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="tbl_District">
+    <Key>
+      <PropertyRef Name="D_No" />
+    </Key>
+    <Property Name="D_No" Type="int" Nullable="false" />
+    <Property Name="D_Name" Type="varchar" MaxLength="25" />
+    <Property Name="D_Code" Type="varchar" MaxLength="10" />
+    <Property Name="Administrative_Division" Type="varchar" MaxLength="50" />
+    <Property Name="Area" Type="float" />
+    <Property Name="Collector" Type="varchar" MaxLength="20" />
+    <Property Name="State" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_Taluka">
+    <Key>
+      <PropertyRef Name="T_No" />
+    </Key>
+    <Property Name="T_No" Type="int" Nullable="false" />
+    <Property Name="T_Name" Type="varchar" MaxLength="20" />
+    <Property Name="Pin_Code" Type="varchar" MaxLength="10" />
+    <Property Name="Tehashil" Type="varchar" MaxLength="30" />
+    <Property Name="D_No" Type="int" />
+    <Property Name="D_Name" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <Association Name="FK__tbl_Taluka__D_No__4E88ABD4">
+    <End Role="tbl_District" Type="Self.tbl_District" Multiplicity="0..1" />
+    <End Role="tbl_Taluka" Type="Self.tbl_Taluka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_District">
+        <PropertyRef Name="D_No" />
+      </Principal>
+      <Dependent Role="tbl_Taluka">
+        <PropertyRef Name="D_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AgricultureModelStoreContainer">
+    <EntitySet Name="Tbl_Crops" EntityType="Self.Tbl_Crops" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_District" EntityType="Self.tbl_District" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Taluka" EntityType="Self.tbl_Taluka" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tbl_Taluka__D_No__4E88ABD4" Association="Self.FK__tbl_Taluka__D_No__4E88ABD4">
+      <End Role="tbl_District" EntitySet="tbl_District" />
+      <End Role="tbl_Taluka" EntitySet="tbl_Taluka" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AgricultureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Tbl_Crops">
+    <Key>
+      <PropertyRef Name="C_No" />
+    </Key>
+    <Property Name="C_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="C_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="C_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="C_Duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="C_Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_District">
+    <Key>
+      <PropertyRef Name="D_No" />
+    </Key>
+    <Property Name="D_No" Type="Int32" Nullable="false" />
+    <Property Name="D_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="D_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Administrative_Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Area" Type="Double" />
+    <Property Name="Collector" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_Taluka" Relationship="Self.FK__tbl_Taluka__D_No__4E88ABD4" FromRole="tbl_District" ToRole="tbl_Taluka" />
+  </EntityType>
+  <EntityType Name="tbl_Taluka">
+    <Key>
+      <PropertyRef Name="T_No" />
+    </Key>
+    <Property Name="T_No" Type="Int32" Nullable="false" />
+    <Property Name="T_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Pin_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Tehashil" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="D_No" Type="Int32" />
+    <Property Name="D_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_District" Relationship="Self.FK__tbl_Taluka__D_No__4E88ABD4" FromRole="tbl_Taluka" ToRole="tbl_District" />
+  </EntityType>
+  <Association Name="FK__tbl_Taluka__D_No__4E88ABD4">
+    <End Role="tbl_District" Type="Self.tbl_District" Multiplicity="0..1" />
+    <End Role="tbl_Taluka" Type="Self.tbl_Taluka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_District">
+        <PropertyRef Name="D_No" />
+      </Principal>
+      <Dependent Role="tbl_Taluka">
+        <PropertyRef Name="D_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AgricultureEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tbl_Crops" EntityType="Self.Tbl_Crops" />
+    <EntitySet Name="tbl_District" EntityType="Self.tbl_District" />
+    <EntitySet Name="tbl_Taluka" EntityType="Self.tbl_Taluka" />
+    <AssociationSet Name="FK__tbl_Taluka__D_No__4E88ABD4" Association="Self.FK__tbl_Taluka__D_No__4E88ABD4">
+      <End Role="tbl_District" EntitySet="tbl_District" />
+      <End Role="tbl_Taluka" EntitySet="tbl_Taluka" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
